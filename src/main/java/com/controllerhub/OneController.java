@@ -1,5 +1,7 @@
 package com.controllerhub;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,8 +37,7 @@ public class OneController {
 		List<Doto> dotoList = (List<Doto>) servletContext.getAttribute("dotoList");
 		model.addAttribute(dotoList);
 		*/
-		List<Doto> dotoList = this.dotoDao.getAll();
-		model.addAttribute("dotoList", dotoList);
+		model.addAttribute("dotoList", getDotoList(dotoDao, true));
 		return "one";
 	}
 
@@ -61,7 +62,16 @@ public class OneController {
 		dotoList.add(doto);
 		*/
 		this.dotoDao.save(doto);
+		model.addAttribute("dotoList", getDotoList(dotoDao, true));
 		model.addAttribute("message", "Saved Successfully!");
 		return "one";
+	}
+	
+	public List<Doto> getDotoList(DotoDao dotoDao, Boolean isReversed) {
+		List<Doto> dotoList = this.dotoDao.getAll();
+		if (isReversed == true) {
+			Collections.reverse(dotoList);
+		}
+		return dotoList;
 	}
 }

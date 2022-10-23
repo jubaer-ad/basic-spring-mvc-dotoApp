@@ -52,7 +52,7 @@
 				</div>
 			</div>
 			<div class="col-md-10">
-				<c:if test="${page=='one'}">
+				<c:if test="${page=='one' || not empty message}">
 					<h3 class="text-center">DoTos</h3>
 					<c:forEach items="${dotoList }" var="doto">
 						<div class="card">
